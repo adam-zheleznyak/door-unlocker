@@ -1,0 +1,14 @@
+{
+  "name": "door-unlocker-server",
+  "version": "1.0.0",
+  "description": "Server to allow interactions with a ESP8266",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
