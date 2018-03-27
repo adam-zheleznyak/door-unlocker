@@ -21,14 +21,8 @@ app.get('/', function (request, response) {
       response.send(JSON.stringify(row));
     }
   });
-  client.end((err) => {
-    console.log('client has disconnected');
-      if (err) {
-        console.log('error during disconnection', err.stack);
-      }
-    });
 });
 
 app.listen(PORT, function(){
-  console.log("Listening on port 3000!")
+  console.log("Listening on port " + PORT + "!")
 });
