@@ -26,9 +26,8 @@ app.get('/', function (request, response) {
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-      console.log(JSON.stringify(row));
-    }
-    client.end();
+      response.send(JSON.stringify(row));
+    }d
   });
 });
 
