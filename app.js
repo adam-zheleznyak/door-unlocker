@@ -7,27 +7,19 @@ const client = new Client({
   ssl: true,
 });
 
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-});
-
 const PORT = process.env.PORT || 5000;
 
 const express = require('express');
 const app = express();
 
 app.get('/', function (request, response) {
-  response.send('Hello World!')
+  client.connect();
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       response.send(JSON.stringify(row));
-    }d
+    }
+    client.end();
   });
 });
 
