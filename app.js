@@ -13,13 +13,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', function (request, response) {
-  client.connect((err) => {
-    if (err) {
-      console.error('connection error', err.stack)
-    } else {
-      console.log('connected')
-    }
-  });
+  client.connect();
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
