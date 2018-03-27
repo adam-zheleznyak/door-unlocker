@@ -23,7 +23,8 @@ const express = require('express');
 const app = express();
 
 app.get('/', function (req, res) {
-  res.send('Hellow World!')
+  res.send('Hello World!')
+  res.send(JSON.stringify(client.query('SELECT username FROM account;')));
 });
 
 app.listen(PORT, function(){
