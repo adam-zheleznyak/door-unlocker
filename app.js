@@ -7,13 +7,14 @@ const client = new Client({
   ssl: true,
 });
 
+client.connect();
+
 const PORT = process.env.PORT || 5000;
 
 const express = require('express');
 const app = express();
 
 app.get('/', function (request, response) {
-  client.connect();
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
