@@ -7,15 +7,15 @@ const client = new Client({
   ssl: true,
 });
 
-client.connect(function(err) {
-  if (err) throw err;
-  console.log("SQL Database Connected!");
-});
-
 const PORT = process.env.PORT || 5000;
 
 const express = require('express');
 const app = express();
+
+client.connect(function(err) {
+  if (err) throw err;
+  console.log("SQL Database Connected!");
+});
 
 app.get('/', function (request, response) {
   client.query('SELECT * FROM account;', (err, res) => {
