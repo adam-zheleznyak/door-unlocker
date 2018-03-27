@@ -7,7 +7,10 @@ const client = new Client({
   ssl: true,
 });
 
-client.connect();
+client.connect(function(err) {
+  if (err) throw err;
+  console.log("SQL Database Connected!");
+});
 
 const PORT = process.env.PORT || 5000;
 
