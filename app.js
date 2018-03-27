@@ -24,7 +24,7 @@ const app = express();
 
 app.get('/', function (request, response) {
   response.send('Hello World!')
-  client.query('SELECT username FROM account;', (err, res) => {
+  client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       console.log(JSON.stringify(row));
