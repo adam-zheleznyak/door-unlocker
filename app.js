@@ -22,9 +22,15 @@ const PORT = process.env.PORT || 5000;
 const express = require('express');
 const app = express();
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-  res.send(JSON.stringify(client.query('SELECT username FROM account;')));
+app.get('/', function (request, response) {
+  response.send('Hello World!')
+  client.query('SELECT username FROM account;', (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      response.send(JSON.stringify(row));
+    }
+    client.end();
+  });
 });
 
 app.listen(PORT, function(){
