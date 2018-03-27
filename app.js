@@ -20,7 +20,7 @@ const app = express();
 app.get('/', function (request, response) {
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
-    out = "";
+    var out = "";
     for (let row of res.rows) {
       out += JSON.stringify(row) + "\n";
     }
