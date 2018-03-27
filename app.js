@@ -24,12 +24,10 @@ const app = express();
 
 app.get('/', function (request, response) {
   response.send('Hello World!')
-  console.log("This got called");
   client.query('SELECT username FROM account;', (err, res) => {
-
     if (err) throw err;
     for (let row of res.rows) {
-      response.send(JSON.stringify(row));
+      console.log(JSON.stringify(row));
     }
     client.end();
   });
