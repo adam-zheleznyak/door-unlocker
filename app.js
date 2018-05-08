@@ -17,6 +17,9 @@ const PORT = process.env.PORT || 5000;
 const express = require('express');
 const app = express();
 
+// for making requests to our ESP8266
+const request = require("request");
+
 // connect to our database and print any errors or if the connection was successful
 client.connect(function(err) {
   if (err) throw err;
@@ -38,6 +41,14 @@ app.get('/', function (request, response) {
     response.send(out);
   });
 });
+
+app.get('/open', function (request, response {
+  request('http://20.18.1.19/led/0', function(error, response, body) {
+    console.log(body);
+    response.send('Error: ${body}');
+  });
+  response.send('Sent request to open door!')
+}));
 
 // run the server on the given port and let us know that it's working!
 app.listen(PORT, function(){
