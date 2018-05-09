@@ -22,6 +22,7 @@ const app = express();
 // for making requests to our ESP8266
 const http = require('http');
 const request_mod = require('request');
+const shell = require('shelljs');
 
 // connect to our database and print any errors or if the connection was successful
 client.connect(function(err) {
@@ -47,13 +48,15 @@ app.get('/', function(request, response) {
 
 app.get('/open', function(request, response) {
   console.log('Got request to open door.');
-  request_mod.get('http://20.18.1.85/stepper/start');
+  //request_mod.get('http://20.18.1.85/stepper/start');
+  shell.exec('curl http://20.18.1.85/stepper/start')
   response.send('Sent request to open door!');
 });
 
 app.get('/stop', function(request, response) {
   console.log('Got request to stop opening.');
-  request_mod.get('http://20.18.1.85/stepper/stop');
+  //request_mod.get('http://20.18.1.85/stepper/stop');
+  shell.exec('curl http://20.18.1.85/stepper/stop')
   response.send('Sent request to stop opening!');
 });
 
