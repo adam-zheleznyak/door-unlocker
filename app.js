@@ -48,7 +48,7 @@ app.get('/open', function (request, response) {
     response.send('Error: ${body}');
   });
   response.send('Sent request to open door!')
-}));
+});
 
 // run the server on the given port and let us know that it's working!
 app.listen(PORT, function(){
