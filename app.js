@@ -45,7 +45,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/open', function(request, response) {
-  http.get('http://20.18.1.85/stepper/start', function(resp) {
+  http.get({host: '20.18.1.85', path: '/stepper/start'}, function(resp) {
 
   }).on("error", (err) => { 
     console.log("Error: " + err.message);
@@ -54,7 +54,7 @@ app.get('/open', function(request, response) {
 });
 
 app.get('/stop', function(request, response) {
-  http.get('http://20.18.1.85/stepper/stop', function(resp) {
+  http.get({host: '20.18.1.85', path: '/stepper/stop'}, function(resp) {
 
   }).on("error", (err) => { 
     console.log("Error: " + err.message);
