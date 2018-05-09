@@ -1,7 +1,9 @@
 'use strict'
 
 // import postgres node.js module so we can use a database
-const { Client } = require('pg');
+const {
+  Client
+} = require('pg');
 
 // create a client object so we can communicate with the database
 const client = new Client({
@@ -18,7 +20,7 @@ const express = require('express');
 const app = express();
 
 // for making requests to our ESP8266
-const request = require("request");
+const http = require('http');
 
 // connect to our database and print any errors or if the connection was successful
 client.connect(function(err) {
@@ -31,26 +33,36 @@ client.connect(function(err) {
 // and then output each row of the JSON data we are given onto the webpage.
 // This is a temporary debugging tool to make sure the database is working properly
 // and we're planning to hide the database contents from users.
-app.get('/', function (req, res) {
-  client.query('SELECT * FROM account;', (e, r) => {
-    if (e) throw e;
+app.get('/', function(request, response) {
+  client.query('SELECT * FROM account;', (err, res) => {
+    if (err) throw err;
     var out = "";
-    for (let row of r.rows) {
+    for (let row of res.rows) {
       out += JSON.stringify(row) + "\n";
     }
-    res.send(out);
+    response.send(out);
   });
 });
 
-app.get('/open', function (req, res) {
-  request('http://20.18.1.85/stepper/start', function(error, response, body) {
-    console.log(body);
-    //response.send('Error: ${body}');
+app.get('/open', function(request, response) {
+  http.get('http://20.18.1.85/stepper/start', function(resp) {
+
+  }).on("error", (err) => { 
+    console.log("Error: " + err.message);
   });
-  res.send('Sent request to open door!')
+  response.send('Sent request to open door!')
+});
+
+app.get('/stop', function(request, response) {
+  http.get('http://20.18.1.85/stepper/stop', function(resp) {
+
+  }).on("error", (err) => { 
+    console.log("Error: " + err.message);
+  });
+  response.send('Sent request to stop opening!')
 });
 
 // run the server on the given port and let us know that it's working!
-app.listen(PORT, function(){
+app.listen(PORT, function() {
   console.log("Listening on port " + PORT + "!")
 });
