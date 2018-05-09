@@ -46,7 +46,7 @@ app.get('/', function(request, response) {
 
 app.get('/open', function(request, response) {
   console.log('Got request to open door.');
-  http.get({host: '20.18.1.85', path: '/stepper/start', port: 80}, function(resp) {
+  http.get({hostname: '20.18.1.85', path: '/stepper/start', port: 80}, function(resp) {
     console.log('response recieved for start');
   }).on("error", (err) => { 
     console.log("Error: " + err.message);
@@ -56,7 +56,7 @@ app.get('/open', function(request, response) {
 
 app.get('/stop', function(request, response) {
   console.log('Got request to stop opening.');
-  http.get({host: '20.18.1.85', path: '/stepper/stop', port: 80}, function(resp) {
+  http.get({hostname: '20.18.1.85', path: '/stepper/stop', port: 80}, function(resp) {
     console.log('response recieved for stop');
   }).on("error", (err) => { 
     console.log("Error: " + err.message);
