@@ -47,13 +47,13 @@ app.get('/', function(request, response) {
 
 app.get('/open', function(request, response) {
   console.log('Got request to open door.');
-  request.get('http://20.18.1.85/stepper/start');
+  request_mod.get('http://20.18.1.85/stepper/start');
   response.send('Sent request to open door!');
 });
 
 app.get('/stop', function(request, response) {
   console.log('Got request to stop opening.');
-  request.get('http://20.18.1.85/stepper/stop');
+  request_mod.get('http://20.18.1.85/stepper/stop');
   response.send('Sent request to stop opening!');
 });
 
