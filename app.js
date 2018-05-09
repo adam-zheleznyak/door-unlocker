@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
 app.get('/open', function (req, res) {
   request('http://20.18.1.85/stepper/start', function(error, response, body) {
     console.log(body);
-    res.send('Error: ${body}');
+    //response.send('Error: ${body}');
   });
   res.send('Sent request to open door!')
 });
