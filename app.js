@@ -21,6 +21,7 @@ const app = express();
 
 // for making requests to our ESP8266
 const http = require('http');
+const request_mod = require('request');
 
 // connect to our database and print any errors or if the connection was successful
 client.connect(function(err) {
@@ -46,22 +47,14 @@ app.get('/', function(request, response) {
 
 app.get('/open', function(request, response) {
   console.log('Got request to open door.');
-  http.get('http://20.18.1.85/stepper/start', function(resp) {
-    console.log('response recieved for start');
-  }).on("error", (err) => { 
-    console.log("Error: " + err.message);
-  });
-  response.send('Sent request to open door!')
+  request.get('http://20.18.1.85/stepper/start');
+  response.send('Sent request to open door!');
 });
 
 app.get('/stop', function(request, response) {
   console.log('Got request to stop opening.');
-  http.get('http://20.18.1.85/stepper/stop', function(resp) {
-    console.log('response recieved for stop');
-  }).on("error", (err) => { 
-    console.log("Error: " + err.message);
-  });
-  response.send('Sent request to stop opening!')
+  request.get('http://20.18.1.85/stepper/stop');
+  response.send('Sent request to stop opening!');
 });
 
 // run the server on the given port and let us know that it's working!
