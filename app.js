@@ -42,7 +42,7 @@ app.get('/', function (request, response) {
   });
 });
 
-app.get('/open', function (request, response {
+app.get('/open', function (request, response) {
   request('http://20.18.1.85/stepper/start', function(error, response, body) {
     console.log(body);
     response.send('Error: ${body}');
