@@ -8,6 +8,11 @@
 const char WiFiSSID[] = "Class-2018";
 const char WiFiPSK[] = "jun1orsmayh3m";
 
+// Static IP details
+IPAddress ip(192, 168, 1, 85);
+IPAddress gateway(20, 18, 0, 1);
+IPAddress subnet(255, 255, 254, 0);
+
 /////////////////////
 // Pin Definitions //
 /////////////////////
@@ -119,6 +124,8 @@ void connectWiFi()
   Serial.println("Connecting to: " + String(WiFiSSID));
   // Set WiFi mode to station (as opposed to AP or AP_STA)
   WiFi.mode(WIFI_STA);
+
+  WiFi.config(ip, gateway, subnet);
 
   // WiFI.begin([ssid], [passkey]) initiates a WiFI connection
   // to the stated [ssid], using the [passkey] as a WPA, WPA2,
