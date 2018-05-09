@@ -20,7 +20,7 @@ const express = require('express');
 const app = express();
 
 // for making requests to our ESP8266
-const http = require('http');
+var http = require('http');
 
 // connect to our database and print any errors or if the connection was successful
 client.connect(function(err) {
@@ -46,7 +46,7 @@ app.get('/', function(request, response) {
 
 app.get('/open', function(request, response) {
   console.log('Got request to open door.');
-  http.get({host: 'www.google.com', path: '/'}, function(resp) {
+  http.get({host: '20.18.1.85', path: '/stepper/start'}, function(resp) {
     console.log('response recieved for start');
   }).on("error", (err) => { 
     console.log("Error: " + err.message);
