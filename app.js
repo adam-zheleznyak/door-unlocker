@@ -31,23 +31,23 @@ client.connect(function(err) {
 // and then output each row of the JSON data we are given onto the webpage.
 // This is a temporary debugging tool to make sure the database is working properly
 // and we're planning to hide the database contents from users.
-app.get('/', function (request, response) {
-  client.query('SELECT * FROM account;', (err, res) => {
-    if (err) throw err;
+app.get('/', function (req, res) {
+  client.query('SELECT * FROM account;', (e, r) => {
+    if (e) throw e;
     var out = "";
-    for (let row of res.rows) {
+    for (let row of r.rows) {
       out += JSON.stringify(row) + "\n";
     }
-    response.send(out);
+    res.send(out);
   });
 });
 
-app.get('/open', function (request, response) {
+app.get('/open', function (req, res) {
   request('http://20.18.1.85/stepper/start', function(error, response, body) {
     console.log(body);
-    response.send('Error: ${body}');
+    res.send('Error: ${body}');
   });
-  response.send('Sent request to open door!')
+  res.send('Sent request to open door!')
 });
 
 // run the server on the given port and let us know that it's working!
