@@ -61,10 +61,10 @@ app.post('/signup', function(request, response) {
 
 app.post('/login', function(request, response) {
   var done = 0;
-  client.query('SELECT password FROM account;', (err, res) => {
+  client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-      if (row == request.body.password) {
+      if (row.username == request.body.user && row.password == request.body.password) {
         console.log(request.body.user + " logged in.");
         response.sendFile('unlock.html', {root: __dirname});
         done = 1;
