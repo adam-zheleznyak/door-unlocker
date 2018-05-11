@@ -60,10 +60,22 @@ app.post('/signup', function(request, response) {
 });
 
 app.post('/login', function(request, response) {
-  response.sendFile('unlock.html', {root: __dirname});
-  console.log(request.body.user + " logged in.");
+  var done = 0;
+  client.query('SELECT ' + request.body.user + ' FROM account;', (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      console.log(row.password);
+      if (row.password == request.body.password) {
+        console.log(request.body.user + " logged in.");
+        response.sendFile('unlock.html', {root: __dirname});
+        done = 1;
+      };
+    }
+    if (done == 0) {
+      response.sendFile('failed.html', {root: __dirname});
+    }
+  });
 });
-
 
 // app.get('/open', function(request, response) {
 //   console.log('Got request to open door.');
