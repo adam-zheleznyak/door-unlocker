@@ -26,7 +26,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
 }));
 
 app.use(bodyParser.json());
@@ -60,11 +60,11 @@ app.post('/signup', function(request, response) {
 });
 
 app.post('/login', function(request, response) {
+  console.log(request.body);
   var done = 0;
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-      console.log(row);
       console.log(row.username);
       console.log(request.body.user);
       console.log(row.password);
