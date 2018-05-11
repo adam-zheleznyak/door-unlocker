@@ -49,21 +49,22 @@ app.get('/', function(request, response) {
 
 app.post('/signup', function(request, response) {
   response.send('You signed up with the username: ' + req.body.user);
+  console.log('New user: ' + req.body.user + "[ " + req.body.password + " ]");
 });
 
-app.get('/open', function(request, response) {
-  console.log('Got request to open door.');
-  //request_mod.get('http://20.18.1.85/stepper/start');
-  shell.exec('curl http://20.18.1.85/stepper/start')
-  response.send('Sent request to open door!');
-});
-
-app.get('/stop', function(request, response) {
-  console.log('Got request to stop opening.');
-  //request_mod.get('http://20.18.1.85/stepper/stop');
-  shell.exec('curl http://20.18.1.85/stepper/stop')
-  response.send('Sent request to stop opening!');
-});
+// app.get('/open', function(request, response) {
+//   console.log('Got request to open door.');
+//   //request_mod.get('http://20.18.1.85/stepper/start');
+//   shell.exec('curl http://20.18.1.85/stepper/start')
+//   response.send('Sent request to open door!');
+// });
+//
+// app.get('/stop', function(request, response) {
+//   console.log('Got request to stop opening.');
+//   //request_mod.get('http://20.18.1.85/stepper/stop');
+//   shell.exec('curl http://20.18.1.85/stepper/stop')
+//   response.send('Sent request to stop opening!');
+// });
 
 // run the server on the given port and let us know that it's working!
 app.listen(PORT, function() {
