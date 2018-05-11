@@ -56,7 +56,7 @@ app.get('/', function(request, response) {
 
 app.post('/signup', function(request, response) {
   response.sendFile('signupconfirm.html', {root: __dirname});
-  console.log('New user: ' + request.body.user + "[ " + request.body.password + " ]");
+  console.log('New user: ' + request.body.user + " [password: " + request.body.password + " ]");
 });
 
 // app.get('/open', function(request, response) {
