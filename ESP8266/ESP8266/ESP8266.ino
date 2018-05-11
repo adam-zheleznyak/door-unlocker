@@ -43,6 +43,7 @@ void loop()
 {
   // spin stepper
   if (spinning && !loosen) {
+    Serial.println("Spinning");
     myStepper.step(dirStep);
     stepCount++;
     if (stepCount >= turns){
