@@ -60,7 +60,7 @@ app.post('/signup', function(request, response) {
 });
 
 app.post('/login', function(request, response) {
-  response.sendFile('signupconfirm.html', {root: __dirname});
+  response.sendFile('unlock.html', {root: __dirname});
   console.log(request.body.user + " logged in.");
 });
 
