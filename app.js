@@ -56,7 +56,7 @@ app.get('/', function(request, response) {
 
 app.post('/signup', function(request, response) {
   client.query('INSERT INTO account(username, password) values($1, $2)',
-    [request.body.user[1], request.body.password[1]]);
+    [request.body.user, request.body.password]);
   response.sendFile('signupconfirm.html', {root: __dirname});
   console.log('New user: ' + request.body.user + " [password: " + request.body.password + " ]");
 });
@@ -66,7 +66,7 @@ app.post('/login', function(request, response) {
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-      if (row.username == request.body.user[0] && row.password == request.body.password[0]) {
+      if (row.username == request.body.user && row.password == request.body.password) {
         console.log(row.username + " logged in.");
         response.sendFile('unlock.html', {root: __dirname});
         done = 1;
