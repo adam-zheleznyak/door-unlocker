@@ -36,14 +36,19 @@ client.connect(function(err) {
 // This is a temporary debugging tool to make sure the database is working properly
 // and we're planning to hide the database contents from users.
 app.get('/', function(request, response) {
-  client.query('SELECT * FROM account;', (err, res) => {
-    if (err) throw err;
-    var out = "";
-    for (let row of res.rows) {
-      out += JSON.stringify(row) + "\n";
-    }
-    response.send(out);
-  });
+  response.sendFile('main.html', {root: __dirname});
+  // client.query('SELECT * FROM account;', (err, res) => {
+  //   if (err) throw err;
+  //   var out = "";
+  //   for (let row of res.rows) {
+  //     out += JSON.stringify(row) + "\n";
+  //   }
+  //   response.send(out);
+  // });
+});
+
+app.post('/signup', function(request, response) {
+  response.send('You signed up with the username: ' + req.body.user);
 });
 
 app.get('/open', function(request, response) {
