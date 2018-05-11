@@ -55,6 +55,8 @@ app.get('/', function(request, response) {
 });
 
 app.post('/signup', function(request, response) {
+  client.query('INSERT INTO account(username, password) values($1, $2)',
+    [request.body.user[1], request.body.password[1]]);
   response.sendFile('signupconfirm.html', {root: __dirname});
   console.log('New user: ' + request.body.user + " [password: " + request.body.password + " ]");
 });
