@@ -48,8 +48,8 @@ app.get('/', function(request, response) {
 });
 
 app.post('/signup', function(request, response) {
-  response.send('You signed up with the username: ' + req.body.user);
-  console.log('New user: ' + req.body.user + "[ " + req.body.password + " ]");
+  response.send('You signed up with the username: ' + request.body.user);
+  console.log('New user: ' + request.body.user + "[ " + request.body.password + " ]");
 });
 
 // app.get('/open', function(request, response) {
