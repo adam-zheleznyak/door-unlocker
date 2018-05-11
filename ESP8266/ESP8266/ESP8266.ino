@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <Stepper.h>
+#include <string>
 
 //////////////////////
 // WiFi Definitions //
@@ -25,6 +26,8 @@ int spinning = false;
 Stepper myStepper(stepsPerRevolution, 15, 12, 13, 4);
 int stepCount = 0;
 int dirStep = 1;
+int turns = 0;
+int loosen = 0;
 
 WiFiServer server(80);
 
@@ -39,15 +42,18 @@ void setup()
 void loop() 
 {
   // spin stepper
-  if (spinning) {
+  if (spinning && !loosen) {
     myStepper.step(dirStep);
-    Serial.print("steps:");
-    Serial.println(stepCount);
     stepCount++;
-    if( stepCount > 500){
-      stepCount = 0;
-      if( dirStep == 1) dirStep = -1;
-      else dirStep = 1;
+    if (stepCount >= turns){
+      loosen = 1;
+      delay(3000);
+    }
+  } else if (spinning && loosen) {
+    myStepper.step(-dirStep);
+    stepCount++;
+    if (stepCount >= turns){
+      loosen = 0;
     }
   }
   
@@ -65,14 +71,21 @@ void loop()
   // Match the request
   int val = -1; // We'll use 'val' to keep track of both the
                 // request type (read/set) and value if set.
-  if (req.indexOf("/led/0") != -1)
+  if (req.indexOf("/led/0") != -1) {
     val = 1; // Will write LED high
-  else if (req.indexOf("/led/1") != -1)
+  } else if (req.indexOf("/led/1") != -1) {
     val = 0; // Will write LED low
-  else if (req.indexOf("/stepper/start") != -1)
+  } else if (req.indexOf("/go") != -1) {
     val = 2; // Will spin stepper
-  else if (req.indexOf("/stepper/stop") != -1)
+    String partial = req.substring(req.indexOf("/go") + 4);
+    turns = (partial.substring(0, partial.indexOf(" HTTP"))).toInt();
+    Serial.println(turns);
+    if (turns < 0) dirStep = -1;
+    else dirStep = 1;
+    turns *= dirStep;
+  } else if (req.indexOf("/stop") != -1) {
     val = 3; // Will stop stepper
+  }
   // Otherwise request will be invalid. We'll say as much in HTML
 
   // Set GPIO5 according to the request
