@@ -20,9 +20,16 @@ const express = require('express');
 const app = express();
 
 // for making requests to our ESP8266
-const http = require('http');
-const request_mod = require('request');
-const shell = require('shelljs');
+// const http = require('http');
+// const request_mod = require('request');
+// const shell = require('shelljs');
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(bodyParser.json());
 
 // connect to our database and print any errors or if the connection was successful
 client.connect(function(err) {
@@ -48,7 +55,7 @@ app.get('/', function(request, response) {
 });
 
 app.post('/signup', function(request, response) {
-  response.send('You signed up with the username: ' + request.body.user);
+  response.sendFile('signupconfirm.html', {root: __dirname});
   console.log('New user: ' + request.body.user + "[ " + request.body.password + " ]");
 });
 
