@@ -65,6 +65,10 @@ app.post('/login', function(request, response) {
     if (err) throw err;
     for (let row of res.rows) {
       console.log(row);
+      console.log(row.username);
+      console.log(request.body.user);
+      console.log(row.password);
+      console.log(request.body.password);
       if (row.username == request.body.user && row.password == request.body.password) {
         console.log(request.body.user + " logged in.");
         response.sendFile('unlock.html', {root: __dirname});
