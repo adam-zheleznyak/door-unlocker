@@ -64,6 +64,7 @@ app.post('/login', function(request, response) {
   client.query('SELECT * FROM account;', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
+      console.log(row);
       if (row.username == request.body.user && row.password == request.body.password) {
         console.log(request.body.user + " logged in.");
         response.sendFile('unlock.html', {root: __dirname});
