@@ -59,6 +59,12 @@ app.post('/signup', function(request, response) {
   console.log('New user: ' + request.body.user + " [password: " + request.body.password + " ]");
 });
 
+app.post('/login', function(request, response) {
+  response.sendFile('signupconfirm.html', {root: __dirname});
+  console.log(request.body.user + " logged in.");
+});
+
+
 // app.get('/open', function(request, response) {
 //   console.log('Got request to open door.');
 //   //request_mod.get('http://20.18.1.85/stepper/start');
